@@ -4,7 +4,7 @@ from pathlib import Path
 
 DATETIME_FORMAT = '%Y-%m-%d_%H-%M-%S'
 LIST_HEADER = ('Status', 'Amount')
-PARENT_DIR = Path(__file__).parents[1]
+BASE_DIR = Path(__file__).parents[1]
 
 
 class PepParsePipeline:
@@ -22,10 +22,8 @@ class PepParsePipeline:
     def close_spider(self, spider):
         total_amount = sum(self.status_amount.values())
         results = list(self.status_amount.items())
-        # results.insert(0, LIST_HEADER)
-        # results.append(('Total', total_amount))
 
-        results_dir = PARENT_DIR / 'results'
+        results_dir = BASE_DIR / 'results'
         results_dir.mkdir(exist_ok=True)
         now = dt.datetime.now()
         now_formatted = now.strftime(DATETIME_FORMAT)
